@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Getit</string>
+    <string name="app_name_final">Get\'it</string>
+    <string name="facebook_app_id">149495705693347</string>
+    <string name="error_body_internet_connection_required">An internet connection is required</string>
+    <string name="google_api_key"> AIzaSyCWsjrJZsVlXk1W4snzvbl2h88HdjULnVA</string>
+    <string name="google_geocode_url">https://maps.googleapis.com/maps/api/geocode/json</string>
+    <string name="facebook_search">graph.facebook.com</string>
+    <string name="facebook_access_token">149495705693347|cjD_q0ydTOGRrfT5fLt7-R0qZDk</string>
+    <string name="twitter_search">api.twitter.com</string>
+    <string name="text_search_hint">Search term</string>
+    <string name="text_search">Search</string>
+    <string name="twitter_api_key">Si9c6oE4mf5KgbKoo9PjV1RTd</string>
+    <string name="twitter_api_secret_key">UX5flKsecXGstMMKIuURg5PCjiYVaMwMlM6lw0OMbioMqaR0Vo</string>
+</resources>

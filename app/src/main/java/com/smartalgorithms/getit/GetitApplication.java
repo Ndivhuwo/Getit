@@ -14,8 +14,7 @@ import com.smartalgorithms.getit.Helpers.LocationHelper;
 import com.smartalgorithms.getit.Models.Local.TwitterAccessToken;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
- * Contact info@smartalgorithms.co.za
+ * Contact info@smartalg.co.za
  * Created by Ndivhuwo Nthambeleni on 2017/12/06.
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */

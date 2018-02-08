@@ -7,6 +7,7 @@ import android.util.Base64;
 import com.google.android.gms.maps.model.LatLng;
 import com.smartalgorithms.getit.Constants;
 import com.smartalgorithms.getit.GetitApplication;
+import com.smartalgorithms.getit.Models.Local.FacebookPictureResponse;
 import com.smartalgorithms.getit.Models.Local.FacebookSearchResponse;
 import com.smartalgorithms.getit.Models.Local.ReverseGeoResponse;
 import com.smartalgorithms.getit.Models.Local.SearchRequest;
@@ -31,10 +32,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2018/01/04.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/04.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class NetworkHelper {
@@ -122,13 +122,6 @@ public class NetworkHelper {
         FacebookSearchResponse facebookSearchResponse = new FacebookSearchResponse();
         Response response;
 
-        /*String url = GeneralHelper.getString(R.string.facebook_search)
-                +"?type=place&q="+searchRequest.getSearchQuery()
-                +"&center="+searchRequest.getLocation().latitude
-                +","+ searchRequest.getLocation().longitude
-                +"&distance="+searchRequest.getSearchDistenceMeters()
-                + "&fields=name,checkins,about,description,location,phone,link"
-                + "&access_token=" + GeneralHelper.getString(R.string.facebook_access_token);*/
         HttpUrl httpUrl = new HttpUrl.Builder()
                 .scheme("https")
                 .host(GeneralHelper.getString(R.string.facebook_search))
@@ -138,7 +131,7 @@ public class NetworkHelper {
                 .addQueryParameter("q", searchRequest.getSearchQuery())
                 .addQueryParameter("center", searchRequest.getLocation().latitude + ","+ searchRequest.getLocation().longitude)
                 .addQueryParameter("distance", searchRequest.getSearchDistenceMeters()+"")
-                .addQueryParameter("fields", "name,checkins,about,description,location,phone,link,picture")
+                .addQueryParameter("fields", "name,checkins,about,description,location,phone,link,picture,photos")
                 .addQueryParameter("access_token", GeneralHelper.getString(R.string.facebook_access_token))
                 .build();
         String url = httpUrl.toString();
@@ -166,6 +159,48 @@ public class NetworkHelper {
             facebookSearchResponse.setSuccess(false);
             facebookSearchResponse.setMessage("facebook place search IO Exception");
             return facebookSearchResponse;
+        }
+    }
+
+    public static FacebookPictureResponse facebookGetPicture(String fb_picture_id){
+        Logger.i(TAG, "facebookPlaceSearch");
+        FacebookPictureResponse facebookPictureResponse = new FacebookPictureResponse();
+        Response response;
+
+        HttpUrl httpUrl = new HttpUrl.Builder()
+                .scheme("https")
+                .host(GeneralHelper.getString(R.string.facebook_search))
+                .addPathSegment("v2.11")
+                .addPathSegment(fb_picture_id)
+                .addPathSegment("picture")
+                .addQueryParameter("type", "normal")
+                .addQueryParameter("access_token", GeneralHelper.getString(R.string.facebook_access_token))
+                .build();
+        String url = httpUrl.toString();
+        Logger.i(TAG, "URL: " + url);
+        try {
+            response = generalCall(url, Constants.REQUEST_TYPE_GET, false, null, null, null);
+            String responseBody = response.body().string();
+            Logger.i(TAG, "responseBody = "+responseBody);
+            facebookPictureResponse = facebookPictureResponse.fromJson(responseBody);
+            if(response.isSuccessful() && facebookPictureResponse!=null) {
+                Logger.i(TAG, "facebook get picture success");
+                facebookPictureResponse.setSuccess(true);
+                return facebookPictureResponse;
+            }
+            else {
+                Logger.i(TAG, "facebook get picture error");
+                facebookPictureResponse.setSuccess(false);
+                facebookPictureResponse.setMessage("facebook get picture error: " + response.body().string());
+                return facebookPictureResponse;
+            }
+        }
+        catch (IOException ioe){
+            Logger.e(TAG, "facebook get picture  IO Exception: " + ioe.getMessage());
+            ioe.printStackTrace();
+            facebookPictureResponse.setSuccess(false);
+            facebookPictureResponse.setMessage("facebook get picture IO Exception");
+            return facebookPictureResponse;
         }
     }
 
@@ -257,43 +292,27 @@ public class NetworkHelper {
 
     public static Single<ReverseGeoResponse> getAddressFromCoordinatesSingleObservable(LatLng coordinates) {
         Logger.i(TAG, "getAddressFromCoordinatesSingleObservable");
-        return Single.defer(new Callable<SingleSource<ReverseGeoResponse>>() {
-            @Override
-            public SingleSource<ReverseGeoResponse> call() throws Exception {
-                return Single.just(addressFromCoordinates(coordinates));
-            }
-        });
+        return Single.defer(() -> Single.just(addressFromCoordinates(coordinates)));
     }
 
     public static Single<FacebookSearchResponse> getInformationFBSingleObservable(SearchRequest searchRequest) {
         Logger.i(TAG, "getInformationSingleObservable");
-        return Single.defer(new Callable<SingleSource<FacebookSearchResponse>>() {
-            @Override
-            public SingleSource<FacebookSearchResponse> call() throws Exception {
-                return Single.just(facebookPlaceSearch(searchRequest));
-            }
-        });
+        return Single.defer(() -> Single.just(facebookPlaceSearch(searchRequest)));
         //return null;
     }
 
     public static Single<TwitterSearchResponse> getInformationTWSingleObservable(SearchRequest searchRequest) {
         Logger.i(TAG, "getInformationSingleObservable");
-        return Single.defer(new Callable<SingleSource<TwitterSearchResponse>>() {
-            @Override
-            public SingleSource<TwitterSearchResponse> call() throws Exception {
-                return Single.just(twitterSearch(searchRequest));
-            }
-        });
+        return Single.defer(() -> Single.just(twitterSearch(searchRequest)));
         //return null;
     }
 
     public static Single<TwitterAccessToken> getTwitterTokenObservable(){
-        return Single.defer(new Callable<SingleSource<TwitterAccessToken>>() {
-            @Override
-            public SingleSource<TwitterAccessToken> call() throws Exception {
-                return Single.just(getTwitterToken());
-            }
-        });
+        return Single.defer(() -> Single.just(getTwitterToken()));
+    }
+
+    public static Single<FacebookPictureResponse> facebookGetPictureObservable(String fb_picture_id){
+        return Single.defer(() -> Single.just(facebookGetPicture(fb_picture_id)));
     }
 
 }

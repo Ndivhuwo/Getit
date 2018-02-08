@@ -5,23 +5,24 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.smartalgorithms.getit.GetitApplication;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2017/12/07.
- * Updated by Ndivhuwo Nthambeleni on 2017/12/07.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class GeneralHelper {
 
-    public static boolean isInternetAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) GetitApplication.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         @SuppressLint("MissingPermission") NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting()) {
@@ -58,6 +59,14 @@ public class GeneralHelper {
         }
     }
 
+    public static Drawable getDrawable(int resourceId) {
+        try {
+            return GetitApplication.getAppContext().getResources().getDrawable(resourceId);
+        } catch (Resources.NotFoundException e) {
+            return null;
+        }
+    }
+
     public static String jsonFromObject(Object object){
         Gson gson = new Gson();
         return gson.toJson(object);
@@ -66,5 +75,9 @@ public class GeneralHelper {
     public static Object objectFromJson(String json, Class<?> classType){
         Gson gson = new Gson();
         return gson.fromJson(json,classType);
+    }
+
+    public static void displayToast(String text){
+        Toast.makeText(GetitApplication.getAppContext(), text, Toast.LENGTH_LONG).show();
     }
 }

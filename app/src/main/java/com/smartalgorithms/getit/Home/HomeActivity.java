@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Location;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,11 +13,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.smartalgorithms.getit.Adapters.AdapterContract;
-import com.smartalgorithms.getit.Adapters.PlaceInfoAdapter;
+import com.smartalgorithms.getit.Adapters.PlaceInfoListAdapter;
 import com.smartalgorithms.getit.Helpers.GeneralHelper;
 import com.smartalgorithms.getit.Helpers.Logger;
 import com.smartalgorithms.getit.Models.Database.PlaceInfo;
@@ -30,12 +28,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
- * Contact info@smartalgorithms.co.za
+ * Contact info@smartalg.co.za
  * Created by Ndivhuwo Nthambeleni on 2017/12/06.
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
-
+//TODO Twitter search - look for @places returned and get more info
+//TODO Facebook search - Get food type and search possible place names - Return list of places with the name in description/about
+//TODO Get efficient text search library
 public class HomeActivity extends AppCompatActivity implements HomeContract.UiListener, AdapterContract.UIListener {
     private static final String TAG = HomeActivity.class.getSimpleName();
     @BindView(R.id.et_search_term) EditText et_search_term;
@@ -44,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.UiLi
     @BindView(R.id.rv_places) RecyclerView rv_places;
     HomePresenter presenter;
     LatLng coordinates;
-    PlaceInfoAdapter placeInfoAdapter;
+    PlaceInfoListAdapter placeInfoListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +96,11 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.UiLi
     public void onSearchComplete(ArrayList<PlaceInfo> placeInfoArrayList) {
         Logger.i(TAG, "onSearchComplete");
         tv_search.setBackgroundColor(GeneralHelper.getColor(R.color.red));
-        placeInfoAdapter = new PlaceInfoAdapter(placeInfoArrayList, coordinates, HomeActivity.this);
+        placeInfoListAdapter = new PlaceInfoListAdapter(placeInfoArrayList, coordinates, HomeActivity.this);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(HomeActivity.this);
         rv_places.setLayoutManager(mLayoutManager);
         rv_places.setItemAnimator(new DefaultItemAnimator());
-        rv_places.setAdapter(placeInfoAdapter);
+        rv_places.setAdapter(placeInfoListAdapter);
     }
 
     @Override
@@ -119,6 +118,6 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.UiLi
     @Override
     public void onTransition(Class<?> toClass) {
         Intent intent = new Intent(HomeActivity.this, toClass);
-
+        startActivity(intent);
     }
 }

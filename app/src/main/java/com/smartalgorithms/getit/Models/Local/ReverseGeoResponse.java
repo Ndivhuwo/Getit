@@ -6,10 +6,9 @@ import com.smartalgorithms.getit.Helpers.GeneralHelper;
 import java.util.List;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2017/12/07.
- * Updated by Ndivhuwo Nthambeleni on 2017/12/07.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class ReverseGeoResponse extends NetworkResponse {

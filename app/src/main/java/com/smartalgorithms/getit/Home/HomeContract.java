@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copyright (c) 2017 hearX Group (Pty) Ltd. All rights reserved
- * Contact info@hearxgroup.com
- * Created by Ndivhuwo Nthambeleni on 2018/01/28.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/28.
+ * Contact info@smartalg.co.za
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class HomeContract {

@@ -5,8 +5,7 @@ import android.util.Log;
 import com.smartalgorithms.getit.GetitApplication;
 
 /**
- * Copyright (c) 2017 hearX Group (Pty) Ltd. All rights reserved
- * Contact info@hearxgroup.com
+ * Contact info@smartalg.co.za
  * Created by Ndivhuwo Nthambeleni on 2017/12/06.
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */

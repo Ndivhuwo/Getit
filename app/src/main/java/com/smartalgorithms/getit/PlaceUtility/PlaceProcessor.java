@@ -1,8 +1,10 @@
 package com.smartalgorithms.getit.PlaceUtility;
 
 import com.smartalgorithms.getit.Constants;
+import com.smartalgorithms.getit.Helpers.NetworkHelper;
 import com.smartalgorithms.getit.Models.Database.PlaceInfo;
 import com.smartalgorithms.getit.Models.Local.FacebookSearchResponse;
+import com.smartalgorithms.getit.Models.Local.PhotoData;
 import com.smartalgorithms.getit.Models.Local.TwitterSearchResponse;
 
 import java.util.ArrayList;
@@ -11,13 +13,12 @@ import java.util.List;
 import io.reactivex.Single;
 
 /**
- * Copyright (c) 2017 hearX Group (Pty) Ltd. All rights reserved
- * Contact info@hearxgroup.com
- * Created by Ndivhuwo Nthambeleni on 2018/01/27.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/27.
+ * Contact info@smartalg.co.za
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
-public class PlaceInteractor {
+public class PlaceProcessor {
 
     private List<PlaceInfo> getPlaceFromFB(FacebookSearchResponse facebookSearchResponse){
         ArrayList<PlaceInfo> placelist = new ArrayList<>();
@@ -25,14 +26,22 @@ public class PlaceInteractor {
             PlaceInfo placeInfo = new PlaceInfo();
             placeInfo.setTitle(data.getName());
             placeInfo.setDescription(data.getDescription());
-            placeInfo.setImageLink(data.getLink());
+            placeInfo.setAbout(data.getAbout());
+            placeInfo.getImageLinks().add(new PhotoData(data.getPicture().getData().getUrl(), Constants.PHOTO_DATA_TYPE_URL));
             placeInfo.setLink(data.getLink());
             placeInfo.setLatitude(data.getLocation().getLatitude());
             placeInfo.setLongitude(data.getLocation().getLongitude());
             placeInfo.setPhone(data.getPhone());
-            placeInfo.setImageLink(data.getPicture().getData().getUrl());
             placeInfo.setCheckins(data.getCheckins());
             placeInfo.setSource(Constants.PLACE_SOURCE_FB);
+
+            if(data.getPhotos() != null){
+                for(PhotoData photoData : data.getPhotos().getData()){
+                    photoData.setType(Constants.PHOTO_DATA_TYPE_ID);
+                    //NetworkHelper.facebookGetPicture(photoData.getId()).getData().getUrl()
+                    placeInfo.getImageLinks().add(photoData);
+                }
+            }
             placelist.add(placeInfo);
         }
         return placelist;

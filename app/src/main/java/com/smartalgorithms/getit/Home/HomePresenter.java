@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
  * Contact info@smartalg.co.za
  * Created by Ndivhuwo Nthambeleni on 2017/12/06.
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
@@ -43,8 +42,8 @@ public class HomePresenter implements HomeContract.PresenterListener {
         int distance = GetitApplication.getSearchDistance();
         SearchRequest searchRequest = currentLocation == null? new SearchRequest(searchTerm, distance):new SearchRequest(searchTerm, currentLocation, distance);
         placeInfoArrayList = new ArrayList<>();
-        if(!GeneralHelper.isInternetAvailable(context)){
-            Toast.makeText(context, GeneralHelper.getString(R.string.error_body_internet_connection_required), Toast.LENGTH_LONG).show();
+        if(!GeneralHelper.isInternetAvailable()){
+            GeneralHelper.displayToast(GeneralHelper.getString(R.string.error_body_internet_connection_required));
         }
         else{
             homeInteractor.getInformationFB(searchRequest);
@@ -67,8 +66,8 @@ public class HomePresenter implements HomeContract.PresenterListener {
 
 
     public void requestAddress(LatLng coordinates) {
-        if(!GeneralHelper.isInternetAvailable(context)){
-            Toast.makeText(context, GeneralHelper.getString(R.string.error_body_internet_connection_required), Toast.LENGTH_LONG).show();
+        if(!GeneralHelper.isInternetAvailable()){
+            GeneralHelper.displayToast(GeneralHelper.getString(R.string.error_body_internet_connection_required));
         }
         else{
             homeInteractor.getReverseGeocode(coordinates);

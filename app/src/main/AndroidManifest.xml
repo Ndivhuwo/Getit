@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Place.PlaceActivity"
+            android:label="Place Activity">
+
+        </activity>
         <service android:name=".Helpers.LocationHelper"
             android:label="LocationHelper Service">
         </service>

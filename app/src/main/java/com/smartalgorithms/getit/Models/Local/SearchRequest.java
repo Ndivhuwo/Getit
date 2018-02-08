@@ -3,10 +3,9 @@ package com.smartalgorithms.getit.Models.Local;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (PTY) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2018/01/09.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/09.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class SearchRequest {

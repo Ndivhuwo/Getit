@@ -24,7 +24,7 @@
         android:layout_height="60dp"
         android:layout_width="match_parent"
         android:minHeight="?attr/actionBarSize"
-        android:background="@drawable/toolbar_bg"
+        android:background="@color/red"
         android:elevation="0dp"
         app:theme="@style/MyToolbarDark"
         android:visibility="visible"
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                app:srcCompat="@android:drawable/ic_menu_search"
+                app:srcCompat="@drawable/ic_search_black_48dp"
                 tools:ignore="MissingConstraints" />
 
             <EditText
@@ -101,7 +101,7 @@
             android:layout_below="@+id/tv_search"
             android:layout_above="@+id/tv_location"
             android:layout_marginTop="20dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="none"/>
 
         <TextView
             android:id="@+id/tv_location"

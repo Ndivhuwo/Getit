@@ -1,14 +1,12 @@
 package com.smartalgorithms.getit.Models.Database;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
- * Contact info@smartalgorithms.co.za
- * Created by Ndivhuwo Nthambeleni on 2018/01/27.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/27.
+ * Contact info@smartalg.co.za
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 @Entity
 public class MenuItem {
@@ -22,7 +20,6 @@ public class MenuItem {
     private double price;
     private int currency;
 
-    @Generated(hash = 1924699290)
     public MenuItem(Long menuId, Long placeId, String title, String description,
             String imagePath, String imageLink, double price, int currency) {
         this.menuId = menuId;
@@ -35,7 +32,6 @@ public class MenuItem {
         this.currency = currency;
     }
 
-    @Generated(hash = 1324140183)
     public MenuItem() {
     }
 

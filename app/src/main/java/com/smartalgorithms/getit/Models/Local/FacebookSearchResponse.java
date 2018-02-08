@@ -6,10 +6,9 @@ import com.smartalgorithms.getit.Helpers.GeneralHelper;
 import java.util.List;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (PTY) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2018/01/10.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/10.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class FacebookSearchResponse extends NetworkResponse{
@@ -33,14 +32,15 @@ public class FacebookSearchResponse extends NetworkResponse{
     }
 
     public class FacebookData{
-        String name;
-        int checkins;
-        String about;
-        String description;
+        String name = "";
+        int checkins = 0;
+        String about = "";
+        String description = "";
         FBlocation location;
-        String phone;
-        String link;
-        FBPicture picture;
+        String phone = "";
+        String link = "";
+        FacebookPictureResponse picture;
+        FBPhoto photos;
 
         public String getName() {
             return name;
@@ -70,14 +70,18 @@ public class FacebookSearchResponse extends NetworkResponse{
             return link;
         }
 
-        public FBPicture getPicture() {
+        public FacebookPictureResponse getPicture() {
             return picture;
         }
 
+        public FBPhoto getPhotos() {
+            return photos;
+        }
+
         public class FBlocation{
-            float latitude;
-            float longitude;
-            String name;
+            float latitude = 0;
+            float longitude = 0;
+            String name = "";
 
             public float getLatitude() {
                 return latitude;
@@ -89,6 +93,17 @@ public class FacebookSearchResponse extends NetworkResponse{
 
             public String getName() {
                 return name;
+            }
+        }
+
+        //TODO store Photo Data list in placeInfo object.
+        public class FBPhoto {
+            List<PhotoData> data;
+
+
+
+            public List<PhotoData> getData() {
+                return data;
             }
         }
     }
@@ -124,24 +139,5 @@ public class FacebookSearchResponse extends NetworkResponse{
         }
     }
 
-    public class FBPicture {
-        PictureData data;
 
-        public PictureData getData() {
-            return data;
-        }
-
-        public class PictureData {
-            boolean is_silhouette;
-            String url;
-
-            public boolean isIs_silhouette() {
-                return is_silhouette;
-            }
-
-            public String getUrl() {
-                return url;
-            }
-        }
-    }
 }

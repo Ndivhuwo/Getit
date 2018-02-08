@@ -1,44 +1,46 @@
 package com.smartalgorithms.getit.Models.Database;
 
-import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Generated;
+
+import com.smartalgorithms.getit.Models.Local.PhotoData;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
- * Contact info@smartalgorithms.co.za
- * Created by Ndivhuwo Nthambeleni on 2018/01/27.
- * Updated by Ndivhuwo Nthambeleni on 2018/01/27.
+ * Contact info@smartalg.co.za
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
-@Entity
+//@Entity
 public class PlaceInfo {
-    @Id
+    //@Id
     private Long placeId;
     private String title;
-    private String description;
-    private String phone;
-    private String link;
-    private String imageLink;
-    private String imagePath;
-    private int checkins;
-    private double latitude;
-    private double longitude;
+    private String description = "";
+    private String about = "";
+    private String phone = "";
+    private String link = "";
+    private List<PhotoData> imageLinks = new ArrayList<>();
+    private List<String> imagePaths = new ArrayList<>();
+    private int checkins = 0;
+    private double latitude = 0;
+    private double longitude = 0;
     private String address;
     private int uploaded;
     private int source;
 
-    @Generated(hash = 33530299)
-    public PlaceInfo(Long placeId, String title, String description, String phone,
-            String link, String imageLink, String imagePath, int checkins,
-            double latitude, double longitude, String address, int uploaded,
-            int source) {
+    public PlaceInfo(Long placeId, String title, String description,String about, String phone, String link, List<PhotoData> imageLinks, List<String> imagePaths, int checkins, double latitude, double longitude, String address, int uploaded, int source) {
         this.placeId = placeId;
         this.title = title;
         this.description = description;
+        this.about = about;
         this.phone = phone;
         this.link = link;
-        this.imageLink = imageLink;
-        this.imagePath = imagePath;
+        this.imageLinks = imageLinks;
+        this.imagePaths = imagePaths;
         this.checkins = checkins;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -46,81 +48,72 @@ public class PlaceInfo {
         this.uploaded = uploaded;
         this.source = source;
     }
-    @Generated(hash = 2046624665)
+
     public PlaceInfo() {
     }
 
     public Long getPlaceId() {
-        return this.placeId;
+        return placeId;
     }
+
     public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
+
     public String getTitle() {
-        return this.title;
+        return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getDescription() {
-        return this.description;
+        return description;
     }
+
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getPhone() {
-        return this.phone;
+
+    public String getAbout() {
+        return about;
     }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     public String getLink() {
-        return this.link;
+        return link;
     }
+
     public void setLink(String link) {
         this.link = link;
     }
-    public String getImageLink() {
-        return this.imageLink;
+
+    public List<PhotoData> getImageLinks() {
+        return imageLinks;
     }
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+
+    public void setImageLinks(List<PhotoData> imageLinks) {
+        this.imageLinks = imageLinks;
     }
-    public String getImagePath() {
-        return this.imagePath;
+
+    public List<String> getImagePaths() {
+        return imagePaths;
     }
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-    public double getLatitude() {
-        return this.latitude;
-    }
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-    public double getLongitude() {
-        return this.longitude;
-    }
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-    public String getAddress() {
-        return this.address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public int getUploaded() {
-        return this.uploaded;
-    }
-    public void setUploaded(int uploaded) {
-        this.uploaded = uploaded;
-    }
-    public int getSource() {
-        return this.source;
-    }
-    public void setSource(int source) {
-        this.source = source;
+
+    public void setImagePaths(List<String> imagePaths) {
+        this.imagePaths = imagePaths;
     }
 
     public int getCheckins() {
@@ -129,5 +122,45 @@ public class PlaceInfo {
 
     public void setCheckins(int checkins) {
         this.checkins = checkins;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getUploaded() {
+        return uploaded;
+    }
+
+    public void setUploaded(int uploaded) {
+        this.uploaded = uploaded;
+    }
+
+    public int getSource() {
+        return source;
+    }
+
+    public void setSource(int source) {
+        this.source = source;
     }
 }

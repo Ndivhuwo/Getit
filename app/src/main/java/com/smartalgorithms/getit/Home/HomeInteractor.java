@@ -7,30 +7,27 @@ import com.smartalgorithms.getit.Helpers.NetworkHelper;
 import com.smartalgorithms.getit.Models.Database.PlaceInfo;
 import com.smartalgorithms.getit.Models.Local.ReverseGeoResponse;
 import com.smartalgorithms.getit.Models.Local.SearchRequest;
-import com.smartalgorithms.getit.PlaceUtility.PlaceInteractor;
+import com.smartalgorithms.getit.PlaceUtility.PlaceProcessor;
 
 import java.util.ArrayList;
 
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Copyright (c) 2017 Smart Algorithms (Pty) Ltd. All rights reserved
  * Contact info@smartalg.co.za
- * Created by Ndivhuwo Nthambeleni on 2017/12/07.
- * Updated by Ndivhuwo Nthambeleni on 2017/12/07.
+ * Created by Ndivhuwo Nthambeleni on 2017/12/06.
+ * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
 public class HomeInteractor {
     private static  final String TAG = HomeInteractor.class.getSimpleName();
     private HomeContract.PresenterListener presenterListener;
-    private PlaceInteractor placeInteractor;
+    private PlaceProcessor placeProcessor;
 
     public HomeInteractor(HomeContract.PresenterListener presenterListener) {
         this.presenterListener = presenterListener;
-        placeInteractor = new PlaceInteractor();
+        placeProcessor = new PlaceProcessor();
         presenterListener.requestPermissions();
         checkTwitterAccessToken();
     }
@@ -52,35 +49,20 @@ public class HomeInteractor {
         NetworkHelper.getAddressFromCoordinatesSingleObservable(coordinates)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<ReverseGeoResponse>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(ReverseGeoResponse reverseGeoResponse) {
-                        //if(reverseGeoResponse.isSuccess()){
-                            //Logger.d();
-                            presenterListener.onGetAddress(reverseGeoResponse);
-                        //}
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
+                .subscribe(reverseGeoResponse -> presenterListener.onGetAddress(reverseGeoResponse),
+                        error -> {
                         ReverseGeoResponse tmp = new ReverseGeoResponse();
                         tmp.setSuccess(false);
-                        tmp.setMessage("Error: " + e.getMessage());
+                        tmp.setMessage("Error: " + error.getMessage());
                         presenterListener.onGetAddress(tmp);
-                    }
-                });
+                    });
     }
 
     public void getInformationFB(SearchRequest searchRequest) {
         NetworkHelper.getInformationFBSingleObservable(searchRequest)
                 .flatMap(facebookSearchResponse -> {
                     Logger.d(TAG, "getPlaceFromFB");
-                    return placeInteractor.getPlaceFromFBObservable(facebookSearchResponse);
+                    return placeProcessor.getPlaceFromFBObservable(facebookSearchResponse);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -97,7 +79,7 @@ public class HomeInteractor {
         NetworkHelper.getInformationTWSingleObservable(searchRequest)
                 .flatMap(twitterSearchResponse -> {
                     Logger.d(TAG, "getPlaceFromTW");
-                    return placeInteractor.getPlaceFromTWObservable(twitterSearchResponse);
+                    return placeProcessor.getPlaceFromTWObservable(twitterSearchResponse);
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -10,6 +10,8 @@
     <string name="twitter_search">api.twitter.com</string>
     <string name="text_search_hint">Search term</string>
     <string name="text_search">Search</string>
+    <string name="text_default_address">No Address</string>
+    <string name="text_default_link"></string>
     <string name="twitter_api_key">Si9c6oE4mf5KgbKoo9PjV1RTd</string>
     <string name="twitter_api_secret_key">UX5flKsecXGstMMKIuURg5PCjiYVaMwMlM6lw0OMbioMqaR0Vo</string>
 </resources>

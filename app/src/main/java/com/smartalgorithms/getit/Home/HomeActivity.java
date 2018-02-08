@@ -106,7 +106,7 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.UiLi
     @Override
     protected void onResume() {
         super.onResume();
-        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("com.hearxgroup.patientmapper"));
+        LocalBroadcastManager.getInstance(this).registerReceiver(receiver, new IntentFilter("com.smartalgorithms.getit"));
     }
 
     @Override

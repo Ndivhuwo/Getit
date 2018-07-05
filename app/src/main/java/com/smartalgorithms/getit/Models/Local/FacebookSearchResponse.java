@@ -11,7 +11,7 @@ import java.util.List;
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
-public class FacebookSearchResponse extends NetworkResponse{
+public class FacebookSearchResponse extends NetworkResponse {
     private List<FacebookData> data;
     private Pager paging;
 
@@ -24,14 +24,14 @@ public class FacebookSearchResponse extends NetworkResponse{
     }
 
     public FacebookSearchResponse fromJson(String s) {
-        return (FacebookSearchResponse) GeneralHelper.objectFromJson(s, FacebookSearchResponse.class);
+        return (FacebookSearchResponse) GeneralHelper.getObjectFromJson(s, FacebookSearchResponse.class);
     }
 
     public String toString() {
         return new Gson().toJson(this);
     }
 
-    public class FacebookData{
+    public class FacebookData {
         String name = "";
         int checkins = 0;
         String about = "";
@@ -78,7 +78,7 @@ public class FacebookSearchResponse extends NetworkResponse{
             return photos;
         }
 
-        public class FBlocation{
+        public class FBlocation {
             float latitude = 0;
             float longitude = 0;
             String name = "";
@@ -101,7 +101,6 @@ public class FacebookSearchResponse extends NetworkResponse{
             List<PhotoData> data;
 
 
-
             public List<PhotoData> getData() {
                 return data;
             }
@@ -113,19 +112,6 @@ public class FacebookSearchResponse extends NetworkResponse{
         String previous;
         String next;
 
-        public class FBCursor{
-            String after;
-            String before;
-
-            public String getAfter() {
-                return after;
-            }
-
-            public String getBefore() {
-                return before;
-            }
-        }
-
         public FBCursor getCursors() {
             return cursors;
         }
@@ -136,6 +122,19 @@ public class FacebookSearchResponse extends NetworkResponse{
 
         public String getNext() {
             return next;
+        }
+
+        public class FBCursor {
+            String after;
+            String before;
+
+            public String getAfter() {
+                return after;
+            }
+
+            public String getBefore() {
+                return before;
+            }
         }
     }
 

@@ -1,120 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dl_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="false"
+    tools:openDrawer="right"
+    android:focusableInTouchMode="true"
     tools:context="com.smartalgorithms.getit.Home.HomeActivity">
-    <ScrollView
-        android:id="@+id/sv_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:fadeScrollbars="false">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/app_bg">
+        android:background="@color/white">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_height="60dp"
-        android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/red"
-        android:elevation="0dp"
-        app:theme="@style/MyToolbarDark"
-        android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_name_final"
-            android:textStyle="bold"
-            tools:ignore="MissingPrefix"
-            fontPath="fonts/GothamRoundedBook.ttf"
-            android:textSize="32sp"
-            android:textColor="@color/white"
-            android:layout_gravity="center"/>
-
-    </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-            android:id="@+id/llyt_search_term"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_height="50dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="32dp"
-            android:layout_below="@+id/my_toolbar"
-            android:layout_marginRight="32dp"
-            android:layout_marginTop="20dp"
-            >
+            android:minHeight="?attr/actionBarSize"
+            android:background="@color/blue"
+            app:theme="@style/MyToolbarDark"
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                app:srcCompat="@drawable/ic_search_black_48dp"
-                tools:ignore="MissingConstraints" />
+                android:text="@string/app_name_final"
+                tools:ignore="MissingPrefix"
+                fontPath="fonts/GothamRoundedBook.ttf"
+                android:textSize="28sp"
+                android:textColor="@color/white"
+                android:layout_gravity="center_vertical|center_horizontal" />
 
-            <EditText
-                android:id="@+id/et_search_term"
-                android:layout_width="fill_parent"
+
+        </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:id="@+id/iv_navigation_drawer"
+            android:layout_width="60dp"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="20dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/img_menu"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lav_navigation_drawer"
+            android:layout_width="60dp"
+            android:layout_height="?attr/actionBarSize"
+            android:padding="20dp"
+            android:layout_alignParentRight="true"
+            app:lottie_colorFilter="@color/white"
+            app:lottie_loop="false"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/rlyt_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_gray_50"
+            android:elevation="10dp"
+            android:visibility="gone">
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lav_loading"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_centerInParent="true"
+                app:lottie_colorFilter="@color/white"
+                app:lottie_loop="true" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlyt_search_area"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <android.support.design.widget.CoordinatorLayout
+                android:id="@+id/cl_search_term"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:hint="@string/text_search_hint"
-                android:textColorHint="@color/grey_hint"
-                android:textColor="@color/grey_text"
-                android:textSize="22sp"
+                android:layout_marginRight="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="20dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="15dp"
-                android:paddingBottom="15dp"/>
-        </LinearLayout>
+                android:paddingBottom="15dp">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/til_search_term"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/et_search_term"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/text_search_hint"
+                        android:textColorHint="@color/grey_hint"
+                        android:textColor="@color/grey_text"
+                        android:textSize="22sp"
+                        />
+                </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.CoordinatorLayout>
+            <LinearLayout
+                android:id="@+id/llyt_search_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_below="@+id/cl_search_term"
+                android:background="@color/blue">
 
-        <TextView
-            android:id="@+id/tv_search"
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/img_search"
+                    tools:ignore="MissingConstraints" />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:text="@string/text_search"
+                    android:textSize="22sp" />
+                <ProgressBar
+                    android:id="@+id/pb_search"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_margin="10dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@+id/llyt_search_term"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginLeft="32dp"
-            android:background="@color/red"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="@string/text_search"
-            android:textSize="22sp"/>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_places"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tv_search"
-            android:layout_above="@+id/tv_location"
-            android:layout_marginTop="20dp"
-            android:scrollbars="none"/>
-
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlyt_search_area"
+            android:layout_above="@+id/tv_location">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_places"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none" />
+            <TextView
+                android:id="@+id/tv_no_place"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textSize="24sp"
+                android:textColor="@color/darkBlue_text_weak"
+                android:text="No place found"
+                android:visibility="gone"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/tv_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom|center_horizontal"
             android:textColor="@color/black"
-            android:textSize="18sp"/>
+            android:background="@color/white"
+            android:textSize="12sp"
+            android:elevation="30dp" />
     </RelativeLayout>
-    </ScrollView>
+    <ListView android:id="@+id/lv_right_drawer"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="right"
+        android:choiceMode="singleChoice"
+        android:divider="@drawable/shape_red_line_thin"
+        android:visibility="visible"
+        android:background="@color/white"/>
 </android.support.v4.widget.DrawerLayout>
 

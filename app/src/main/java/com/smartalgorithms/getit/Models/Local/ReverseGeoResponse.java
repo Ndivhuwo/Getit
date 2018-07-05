@@ -13,8 +13,13 @@ import java.util.List;
 
 public class ReverseGeoResponse extends NetworkResponse {
     private List<Result> results;
+
+    public static String getAdress(Result result) {
+        return result.getFormatted_address();
+    }
+
     public ReverseGeoResponse fromJson(String s) {
-        return (ReverseGeoResponse) GeneralHelper.objectFromJson(s, ReverseGeoResponse.class);
+        return (ReverseGeoResponse) GeneralHelper.getObjectFromJson(s, ReverseGeoResponse.class);
     }
 
     public String toString() {
@@ -23,10 +28,6 @@ public class ReverseGeoResponse extends NetworkResponse {
 
     public List<Result> getResults() {
         return results;
-    }
-
-    public static String getAdress(Result result){
-        return result.getFormatted_address();
     }
 
     public class Result {

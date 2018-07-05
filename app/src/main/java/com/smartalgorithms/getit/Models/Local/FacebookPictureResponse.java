@@ -17,7 +17,7 @@ public class FacebookPictureResponse extends NetworkResponse {
     }
 
     public FacebookPictureResponse fromJson(String s) {
-        return (FacebookPictureResponse) GeneralHelper.objectFromJson(s, FacebookPictureResponse.class);
+        return (FacebookPictureResponse) GeneralHelper.getObjectFromJson(s, FacebookPictureResponse.class);
     }
 
     public String toString() {

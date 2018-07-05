@@ -21,7 +21,7 @@ public class MenuItem {
     private int currency;
 
     public MenuItem(Long menuId, Long placeId, String title, String description,
-            String imagePath, String imageLink, double price, int currency) {
+                    String imagePath, String imageLink, double price, int currency) {
         this.menuId = menuId;
         this.placeId = placeId;
         this.title = title;

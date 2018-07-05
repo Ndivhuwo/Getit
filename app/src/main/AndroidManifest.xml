@@ -8,12 +8,16 @@
     <application
         android:name=".GetitApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/img_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/img_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Home.HomeActivity">
+        <activity android:name=".Home.HomeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,7 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Place.PlaceActivity"
-            android:label="Place Activity">
+            android:screenOrientation="portrait"
+            android:label="Place Activity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <service android:name=".Helpers.LocationHelper"

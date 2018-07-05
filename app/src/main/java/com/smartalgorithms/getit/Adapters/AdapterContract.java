@@ -7,7 +7,13 @@ package com.smartalgorithms.getit.Adapters;
  */
 
 public class AdapterContract {
-    public interface UIListener{
+    public interface UIListener {
         void onTransition(Class<?> toClass);
+    }
+
+    public interface DrawerListener {
+        void onSaveLocationRadius(int locationRadius);
+
+        void onUseCurrentLocationChange(boolean isChecked);
     }
 }

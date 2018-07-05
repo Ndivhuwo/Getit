@@ -1,7 +1,5 @@
 package com.smartalgorithms.getit.Models.Local;
 
-import android.support.annotation.Nullable;
-
 import com.google.gson.Gson;
 import com.smartalgorithms.getit.Helpers.GeneralHelper;
 
@@ -13,7 +11,7 @@ import java.util.List;
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
-public class TwitterSearchResponse extends NetworkResponse{
+public class TwitterSearchResponse extends NetworkResponse {
     List<Tweet> statuses;
     TWMetaData search_metadata;
 
@@ -22,7 +20,7 @@ public class TwitterSearchResponse extends NetworkResponse{
     }
 
     public TwitterSearchResponse fromJson(String s) {
-        return (TwitterSearchResponse) GeneralHelper.objectFromJson(s, TwitterSearchResponse.class);
+        return (TwitterSearchResponse) GeneralHelper.getObjectFromJson(s, TwitterSearchResponse.class);
     }
 
     public String toString() {
@@ -51,9 +49,9 @@ public class TwitterSearchResponse extends NetworkResponse{
             return text;
         }
 
-        public class Geo{
+        public class Geo {
             String type;
-            double [] coordinates = new double[2];
+            double[] coordinates = new double[2];
 
             public String getType() {
                 return type;
@@ -63,14 +61,15 @@ public class TwitterSearchResponse extends NetworkResponse{
                 return coordinates;
             }
         }
-        public class TWEntity{
+
+        public class TWEntity {
             List<HashTag> hashtags;
 
             public List<HashTag> getHashtags() {
                 return hashtags;
             }
 
-            public class HashTag{
+            public class HashTag {
                 String text;
 
                 public String getText() {
@@ -81,7 +80,7 @@ public class TwitterSearchResponse extends NetworkResponse{
 
     }
 
-    public class TWMetaData{
+    public class TWMetaData {
         String refresh_url;
         String next_results;
         int count;

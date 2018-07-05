@@ -1,0 +1,37 @@
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimary">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:text="@string/app_name_final"
+        tools:ignore="MissingPrefix"
+        fontPath="fonts/GothamRoundedBook.ttf"
+        android:textSize="28sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <ImageView
+        android:id="@+id/iv_navigation_drawer"
+        android:layout_width="60dp"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="20dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/img_menu"
+        android:elevation="20dp"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav_navigation_drawer"
+        android:layout_width="60dp"
+        android:layout_height="?attr/actionBarSize"
+        android:padding="20dp"
+        android:layout_alignParentRight="true"
+        app:lottie_colorFilter="@color/white"
+        app:lottie_loop="false"
+        android:visibility="gone"/>
+</RelativeLayout>

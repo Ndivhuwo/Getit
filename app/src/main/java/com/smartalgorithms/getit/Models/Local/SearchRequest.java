@@ -45,7 +45,19 @@ public class SearchRequest {
         return searchDistenceMeters;
     }
 
-    public int getSearchDistenceKM(){
-        return searchDistenceMeters/1000;
+    public int getSearchDistenceKM() {
+        return searchDistenceMeters / 1000;
+    }
+
+    public void setSearchQuery(String searchQuery) {
+        this.searchQuery = searchQuery;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
+
+    public void setSearchDistenceMeters(int searchDistenceMeters) {
+        this.searchDistenceMeters = searchDistenceMeters;
     }
 }

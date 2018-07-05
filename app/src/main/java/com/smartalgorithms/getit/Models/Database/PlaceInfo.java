@@ -6,9 +6,6 @@ import com.smartalgorithms.getit.Models.Local.PhotoData;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
-
 /**
  * Contact info@smartalg.co.za
  * Created by Ndivhuwo Nthambeleni on 2017/12/06.
@@ -23,6 +20,7 @@ public class PlaceInfo {
     private String about = "";
     private String phone = "";
     private String link = "";
+    private String icon = "";
     private List<PhotoData> imageLinks = new ArrayList<>();
     private List<String> imagePaths = new ArrayList<>();
     private int checkins = 0;
@@ -32,13 +30,14 @@ public class PlaceInfo {
     private int uploaded;
     private int source;
 
-    public PlaceInfo(Long placeId, String title, String description,String about, String phone, String link, List<PhotoData> imageLinks, List<String> imagePaths, int checkins, double latitude, double longitude, String address, int uploaded, int source) {
+    public PlaceInfo(Long placeId, String title, String description, String about, String phone, String link, String icon, List<PhotoData> imageLinks, List<String> imagePaths, int checkins, double latitude, double longitude, String address, int uploaded, int source) {
         this.placeId = placeId;
         this.title = title;
         this.description = description;
         this.about = about;
         this.phone = phone;
         this.link = link;
+        this.icon = icon;
         this.imageLinks = imageLinks;
         this.imagePaths = imagePaths;
         this.checkins = checkins;
@@ -162,5 +161,13 @@ public class PlaceInfo {
 
     public void setSource(int source) {
         this.source = source;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

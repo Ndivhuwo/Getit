@@ -9,7 +9,7 @@ import com.smartalgorithms.getit.Helpers.GeneralHelper;
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
-public class TwitterAccessToken extends NetworkResponse{
+public class TwitterAccessToken extends NetworkResponse {
     String token_type;
     String access_token;
 
@@ -30,7 +30,7 @@ public class TwitterAccessToken extends NetworkResponse{
     }
 
     public TwitterAccessToken fromJson(String s) {
-        return (TwitterAccessToken) GeneralHelper.objectFromJson(s, TwitterAccessToken.class);
+        return (TwitterAccessToken) GeneralHelper.getObjectFromJson(s, TwitterAccessToken.class);
     }
 
     public String toString() {

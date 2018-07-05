@@ -6,7 +6,7 @@ package com.smartalgorithms.getit.Models.Local;
  * Updated by Ndivhuwo Nthambeleni on 2017/12/06.
  */
 
-public class PhotoData{
+public class PhotoData {
     String created_time;
     String id;
     int type;
@@ -20,12 +20,12 @@ public class PhotoData{
         return created_time;
     }
 
-    public String getId() {
-        return id;
-    }
-
     public void setCreated_time(String created_time) {
         this.created_time = created_time;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {

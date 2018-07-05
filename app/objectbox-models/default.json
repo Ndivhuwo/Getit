@@ -1,0 +1,58 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4554581374388454256",
+      "lastPropertyId": "8:1035789905047619547",
+      "name": "MenuItem",
+      "properties": [
+        {
+          "id": "1:8801461522515784633",
+          "name": "menuId"
+        },
+        {
+          "id": "2:8208256387799890139",
+          "name": "placeId"
+        },
+        {
+          "id": "3:1234506333176656311",
+          "name": "title"
+        },
+        {
+          "id": "4:4137252969907317838",
+          "name": "description"
+        },
+        {
+          "id": "5:8602485154426983661",
+          "name": "imagePath"
+        },
+        {
+          "id": "6:2443366180230272749",
+          "name": "imageLink"
+        },
+        {
+          "id": "7:8037063595675090415",
+          "name": "price"
+        },
+        {
+          "id": "8:1035789905047619547",
+          "name": "currency"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:4554581374388454256",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

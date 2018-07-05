@@ -1,1 +1,1 @@
-include ':app', ':picasso-loader', ':library-scrollgalleryview'
+include ':app'

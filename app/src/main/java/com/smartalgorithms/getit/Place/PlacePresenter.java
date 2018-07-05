@@ -1,18 +1,17 @@
 package com.smartalgorithms.getit.Place;
 
-import android.support.annotation.Nullable;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.smartalgorithms.getit.Constants;
 import com.smartalgorithms.getit.Helpers.GeneralHelper;
-import com.smartalgorithms.getit.Helpers.Logger;
+import com.smartalgorithms.getit.Helpers.LoggingHelper;
 import com.smartalgorithms.getit.Models.Database.PlaceInfo;
-import com.smartalgorithms.getit.Models.Local.FacebookPictureResponse;
-import com.smartalgorithms.getit.Models.Local.PhotoData;
 import com.smartalgorithms.getit.Models.Local.ReverseGeoResponse;
 import com.smartalgorithms.getit.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,43 +25,26 @@ public class PlacePresenter implements PlaceContract.PresenterListener {
     private PlaceContract.UIListener uiListener;
     private PlaceInfo placeInfo;
     private PlaceInteractor placeInteractor;
-    private List<String> imageIds = new ArrayList<>();
-    private List<String> imageLinks = new ArrayList<>();
+    private Context context;
+    private PlaceImageAdapter placeImageAdapter;
 
-    public PlacePresenter(PlaceContract.UIListener uiListener, PlaceInfo placeInfo) {
+    public PlacePresenter(Context context, PlaceContract.UIListener uiListener, PlaceInfo placeInfo) {
+        this.context = context;
         this.uiListener = uiListener;
         this.placeInfo = placeInfo;
         placeInteractor = new PlaceInteractor(PlacePresenter.this);
-        placeInteractor.initialize();
-    }
-
-
-    @Override
-    public void getPlaceImages(){
-        for (PhotoData photo : placeInfo.getImageLinks()) {
-            if(photo.getType() == Constants.PHOTO_DATA_TYPE_ID){
-                imageIds.add(photo.getId());
-            }else {
-                imageLinks.add(photo.getId());
-            }
-        }
-        if(imageIds.size() > 0){
-            placeInteractor.getImageUrls(imageIds);
-            imageLinks.clear();
-        }else {
-            uiListener.prepareGallery(imageLinks);
-        }
+        placeInteractor.initialize(this.placeInfo);
     }
 
     @Override
     public void getUIStrings() {
-        String title = placeInfo.getTitle().length() > 20 ? placeInfo.getTitle().substring(0,20) + "..." : placeInfo.getTitle();
+        String title = placeInfo.getTitle().length() > 20 ? placeInfo.getTitle().substring(0, 20) + "..." : placeInfo.getTitle();
         StringBuilder info = new StringBuilder();
         info.append("Name: " + placeInfo.getTitle() + "\n");
-        if(placeInfo.getAbout() != null){
+        if (placeInfo.getAbout() != null) {
             info.append("About: " + placeInfo.getAbout() + "\n");
         }
-        if(placeInfo.getDescription() != null){
+        if (placeInfo.getDescription() != null) {
             info.append("Description: " + placeInfo.getDescription());
         }
         String checkins = placeInfo.getCheckins() == 0 ? "Unknown Checkins" : placeInfo.getCheckins() + " Checkins";
@@ -73,11 +55,10 @@ public class PlacePresenter implements PlaceContract.PresenterListener {
 
     @Override
     public void requestAddress() {
-        if(!GeneralHelper.isInternetAvailable()){
+        if (!GeneralHelper.isInternetAvailable()) {
             GeneralHelper.displayToast(GeneralHelper.getString(R.string.error_body_internet_connection_required));
-        }
-        else{
-            if(placeInfo.getLongitude() != 0 && placeInfo.getLatitude() != 0) {
+        } else {
+            if (placeInfo.getLongitude() != 0 && placeInfo.getLatitude() != 0) {
                 LatLng coordinates = new LatLng(placeInfo.getLatitude(), placeInfo.getLongitude());
                 placeInteractor.getReverseGeocode(coordinates);
             }
@@ -87,34 +68,42 @@ public class PlacePresenter implements PlaceContract.PresenterListener {
 
     @Override
     public void onGetAddress(ReverseGeoResponse reverseGeoResponse) {
-        if(reverseGeoResponse.isSuccess()){
+        if (reverseGeoResponse.isSuccess()) {
             uiListener.onAddressRecieved(reverseGeoResponse.getResults().get(0).getFormatted_address());
-        }else {
+        } else {
             uiListener.onAddressRecieved(reverseGeoResponse.getMessage());
         }
     }
 
     @Override
-    public void onGetImageUrlsComplete(@Nullable List<FacebookPictureResponse> pictures) {
-        if(pictures != null){
-            for (FacebookPictureResponse pictureResponse : pictures){
-                imageLinks.add(pictureResponse.getData().getUrl());
-            }
-        }else {
-            Logger.e(TAG, "Error getting picture URLs from the ids");
+    public void onGetImageUrlsComplete(List<String> urls) {
+        if (urls != null) {
+            placeImageAdapter = new PlaceImageAdapter(context, urls);
+            uiListener.onAdapterCreated(placeImageAdapter);
+        } else {
+            LoggingHelper.e(TAG, "Error getting picture URLs from the ids");
         }
-        uiListener.prepareGallery(imageLinks);
     }
 
-    @Override
-    public void onGetImageUrlsComplete(List<String> urls, int size) {
-        if(urls != null){
-            for (String pictureResponse : urls){
-                imageLinks.add(pictureResponse);
+    public void goToPlace() {
+        DialogInterface.OnClickListener ok_listener = (dialog, which) -> {
+            //String startingAddress = coordinates.latitude + "," + coordinates.longitude;
+            String destinationAddress = placeInfo.getLatitude() + "," + placeInfo.getLongitude();
+            Uri uri = Uri.parse("google.navigation:q=" + destinationAddress);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setPackage("com.google.android.apps.maps");
+            if (intent.resolveActivity(context.getPackageManager()) != null) {
+                context.startActivity(intent);
+            } else {
+                GeneralHelper.displayToast(GeneralHelper.getString(R.string.text_no_maps_app));
             }
-        }else {
-            Logger.e(TAG, "Error getting picture URLs from the ids");
-        }
-        uiListener.prepareGallery(imageLinks);
+
+        };
+        if (placeInfo.getLongitude() != 0 && placeInfo.getLatitude() != 0) {
+            uiListener.showMessage(GeneralHelper.getString(R.string.title_navigation),
+                    GeneralHelper.getString(R.string.sentence_navigation_message),
+                    ok_listener, null, true, "YES", "NO");
+        } else
+            uiListener.showMessage(GeneralHelper.getString(R.string.title_error), GeneralHelper.getString(R.string.sentence_no_location), null, null, false, "OK", "");
     }
 }

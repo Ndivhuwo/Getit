@@ -1,11 +1,9 @@
 package com.smartalgorithms.getit.Place;
 
-import android.support.annotation.Nullable;
+import android.content.DialogInterface;
 
-import com.smartalgorithms.getit.Models.Local.FacebookPictureResponse;
 import com.smartalgorithms.getit.Models.Local.ReverseGeoResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,19 +13,24 @@ import java.util.List;
  */
 
 public class PlaceContract {
-    public interface UIListener{
+    public interface UIListener {
         void onAddressRecieved(String formatted_address);
-        void prepareGallery(List<String> imageLinks);
+
+        void onAdapterCreated(PlaceImageAdapter imageLinks);
+
         void updateUI(String title, String info, String link_phone, String checkins);
+
+        void showMessage(String title, String message, DialogInterface.OnClickListener ok_listener, DialogInterface.OnClickListener cancel_listener, boolean has_cancel, String positive_text, String negative_text);
         //void transitionOn(Class<?> toClass, finis)
     }
 
-    public interface PresenterListener{
+    public interface PresenterListener {
         void onGetAddress(ReverseGeoResponse reverseGeoResponse);
-        void onGetImageUrlsComplete(@Nullable List<FacebookPictureResponse> pictures);
-        void onGetImageUrlsComplete(List<String> urls, int size);
-        void getPlaceImages();
+
+        void onGetImageUrlsComplete(List<String> urls);
+
         void getUIStrings();
+
         void requestAddress();
     }
 }
